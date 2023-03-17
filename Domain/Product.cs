@@ -17,6 +17,6 @@ namespace Domain
         public int Quantity { get; set; }
         public string CreateDate { get; set; }
         public Category Category { get; set; }
-        public virtual ICollection<OrderItem> OrderItem { get; set; }
+        public virtual ICollection<OrderItem> OrderItemList { get; set; }
     }
 }

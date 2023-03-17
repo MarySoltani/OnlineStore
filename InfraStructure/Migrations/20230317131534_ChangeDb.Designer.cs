@@ -4,14 +4,16 @@ using InfraStructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InfraStructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230317131534_ChangeDb")]
+    partial class ChangeDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,6 +28,9 @@ namespace InfraStructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -37,7 +42,7 @@ namespace InfraStructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Category");
                 });
@@ -474,9 +479,9 @@ namespace InfraStructure.Migrations
 
             modelBuilder.Entity("Domain.Category", b =>
                 {
-                    b.HasOne("Domain.Category", "ParentCategory")
+                    b.HasOne("Domain.Category", null)
                         .WithMany("CategoryList")
-                        .HasForeignKey("ParentId");
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("Domain.Identity.RoleClaim", b =>
