@@ -16,5 +16,6 @@ namespace Domain
         public DateTime CreateDate { get; set; }
         public string? Description { get; set; }
         public Order Order { get; set; }
+        public Product Product { get; set; }
     }
 }
