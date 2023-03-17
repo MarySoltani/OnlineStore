@@ -20,11 +20,14 @@ namespace InfraStructure
 {
     public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
     {
-      
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categries { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+              : base(options)
+        {
+        }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderItem> OrderItem { get; set; }
 
 
 
