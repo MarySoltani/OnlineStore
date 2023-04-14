@@ -4,14 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Domain;
 using InfraStructure;
+using Application;
 
 namespace WebApp.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ICategoryService _context;
 
-        public CategoryController(ApplicationDbContext context)
+        public CategoryController(ICategoryService context)
         {
             _context = context;
         }
@@ -19,7 +20,7 @@ namespace WebApp.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Category.ToListAsync());
+            return View(await _context.ToListAsync());
         }
 
         // GET: Categories/Details/5
@@ -30,8 +31,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var category = await _context.GetAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -70,7 +70,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category.FindAsync(id);
+            var category = await _context.GetAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -121,8 +121,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var category = await _context.GetAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -136,15 +135,15 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Category.FindAsync(id);
-            _context.Category.Remove(category);
+            var category = await _context.GetAsync(m => m.Id == id);
+            _context.Delete(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryExists(int id)
         {
-            return _context.Category.Any(e => e.Id == id);
+            return _context.Any(e => e.Id == id);
         }
     }
 }

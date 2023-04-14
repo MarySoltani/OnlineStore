@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain
 {
-    public class Category
+    public class Category : EntityBase
     {
         public int Id { get; set; }
         public int? ParentId { get; set; }

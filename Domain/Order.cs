@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain
 {
-    public class Order
+    public class Order : EntityBase
     {
         public int Id { get; set; }
 		public int UserId { get; set; }

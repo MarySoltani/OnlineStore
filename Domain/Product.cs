@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain
 {
-    public class Product
+    public class Product : EntityBase
 	{
         public int Id { get; set; }
         public int CategoryId { get; set; }
